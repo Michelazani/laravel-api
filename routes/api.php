@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::name('api.')->group(function () {
     Route::get('/portfolios', [PortfolioController::class, 'index'])->name('portfolios.index');
+    Route::get('/portfolios/search', [PortfolioController::class, 'search'])->name('portfolios.search');
     Route::get('/portfolios/{portfolio}', [PortfolioController::class, 'show'])->name('portfolios.show');
 
 });
