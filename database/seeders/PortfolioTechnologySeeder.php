@@ -19,7 +19,7 @@ class PortfolioTechnologySeeder extends Seeder
         $technologies = Technology::all()->pluck('id');
 
         foreach ($portfolios as $portfolio) {
-            $portfolio->technologies()->sync($faker->randomElements($technologies,rand(1,4) ));
+            $portfolio->technologies()->sync($faker-> randomElements($technologies,rand(1,4) ));
         }
     }
 }
