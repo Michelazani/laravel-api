@@ -9,7 +9,7 @@ use App\Models\Portfolio;
 class PortfolioController extends Controller
 {
     public function index(){
-        $portfolios = Portfolio::all();
+        $portfolios = Portfolio::with('type', 'technologies')->paginate(20);
         return response()-> json([
             "success" => true,
             "results" =>$portfolios
@@ -28,18 +28,22 @@ class PortfolioController extends Controller
         $data = $request->all();
 
         if (isset($data['name'])){
+            // name è quello che metto nella query string, intesa come key nella ricerca 
+            // link + ? + name=..
             $string = $data['name'];
             // dd($string);
             $portfolios = Portfolio::where('Project', 'LIKE', "%{$string}%")->get();
             // dd($portfolio);
-            return response()-> json([
-                "success" => true,
-                "results" => $portfolios,
-                "matches" => count($portfolios),
-            ]   
-        );    
+        } else if(is_null($data['name'])){
+            $portfolios = Portfolio::all();
         } else {
             abort(404);
-    }
+        }
+        return response()-> json([
+            "success" => true,
+            "results" => $portfolios,
+            "matches" => count($portfolios),
+        ]   
+        );    
     }
 }
