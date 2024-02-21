@@ -15,7 +15,7 @@ class PortfolioController extends Controller
             "success" => true,
             "results" =>$portfolios
         ]   
-    );
+        );
     }
     public function show(Portfolio $portfolio){
         return response()-> json([
@@ -25,6 +25,7 @@ class PortfolioController extends Controller
     );    
     }
 
+    // per la ricerce
     public function search(Request $request){
         $data = $request->all();
 
