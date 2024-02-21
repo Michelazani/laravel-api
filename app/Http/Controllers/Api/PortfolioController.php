@@ -24,7 +24,22 @@ class PortfolioController extends Controller
     );    
     }
 
-    public function search(){
-        return 'search';
+    public function search(Request $request){
+        $data = $request->all();
+
+        if (isset($data['name'])){
+            $string = $data['name'];
+            // dd($string);
+            $portfolios = Portfolio::where('Project', 'LIKE', "%{$string}%")->get();
+            // dd($portfolio);
+            return response()-> json([
+                "success" => true,
+                "results" => $portfolios,
+                "matches" => count($portfolios),
+            ]   
+        );    
+        } else {
+            abort(404);
+    }
     }
 }
