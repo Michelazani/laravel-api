@@ -9,6 +9,7 @@ use App\Models\Portfolio;
 class PortfolioController extends Controller
 {
     public function index(){
+        // eager loading
         $portfolios = Portfolio::with('type', 'technologies')->paginate(20);
         return response()-> json([
             "success" => true,
